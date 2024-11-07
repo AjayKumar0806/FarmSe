@@ -1,0 +1,223 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Product Display Flexbox */
+.product-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Add Product Button (as a card) */
+.add-product-card {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-product-card:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.plus-icon {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.add-product-card p {
+    color: #333;
+    font-size: 18px;
+}
+
+/* Hidden Form Section */
+.form-section {
+    width: 80%;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hidden */
+}
+
+.form-section.active {
+    display: block;
+    animation: slideIn 0.4s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    color: #555;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Product Card */
+.product-card {
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-details h3 {
+    color: #4CAF50;
+    margin: 10px 0;
+}
+
+.product-details p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.product-details .price {
+    font-weight: bold;
+    color: #333;
+}
+
+.product-details .humidity {
+    font-style: italic;
+    color: #888;
+}
+
+/* Edit Button inside product cards */
+.edit-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.edit-btn:hover {
+    background-color: #0b7dda;
+}
+
+/* Delete Button inside product cards */
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Align Edit and Delete buttons in product-actions */
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-card, .add-product-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 500px) {
+    .product-card, .add-product-card {
+        width: 100%;
+    }
+}

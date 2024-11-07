@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Product Dashboard</title>
+    <link rel="stylesheet" href="addCrop.css">
+</head>
+<body>
+
+    <!-- Main Dashboard Section -->
+    <div class="container">
+        <h1>Farmer Crop Details</h1>
+        
+
+        <!-- Product Display Section -->
+        <div class="product-display" id="productDisplay">
+            <!-- Add Product Button (acts as a card) -->
+            <div class="add-product-card" id="addProductBtn">
+                <div class="plus-icon">+</div>
+                <p>Add Crop</p>
+            </div>
+        </div>
+
+        <!-- Hidden Form Section for Adding/Editing Products -->
+        <div id="formSection" class="form-section hidden">
+            <h2 id="formTitle">Add New Crop</h2>
+            <form id="productForm">
+                <label for="productName">Crop Name:</label>
+                <input type="text" id="productName" required>
+
+                <label for="productPrice">Price (INR):</label>
+                <input type="number" id="productPrice" required>
+
+                <label for="productDesc">Description:</label>
+                <textarea id="productDesc" rows="3" required></textarea>
+
+                <label for="productImage">Crop Image:</label>
+                <input type="file" id="productImage" accept="image/*" required>
+
+                <label for="humidity">Humidity (%):</label>
+                <input type="number" id="humidity" required>
+
+                <input type="hidden" id="productId" />
+
+                <button type="submit" id="formSubmitBtn">Add Crop</button>
+                <div class="product-actions">
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+                
+
+            </form>
+        </div>
+
+        
+
+        </div>
+    </div>
+
+    <script type="module" src="addCrop.js"></script>
+</body>
+</html>

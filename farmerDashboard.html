@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farmer Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="farmerDashboard.css" />
+  <link rel="stylesheet" href="addCrop.css" />
+  <style>
+    .section {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .product-image {
+      max-width: 100px;
+    }
+
+    .add-crop-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .add-crop-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/100" alt="Farmer Image" id="profileImage" />
+      <input type="file" id="profileImageUpload" accept="image/*" style="display: none" />
+      <button id="editImageBtn">Edit Image</button>
+    </div>
+    <nav>
+      <ul>
+        <li><button id="profileBtn">Profile</button></li>
+        <li><button id="searchBtn">Search Buyer</button></li>
+        <li><button id="addProductNavBtn">Products</button></li>
+        <li><button id="orderNavBtn">Orders</button></li>
+        <li><button id="logoutBtn">Logout</button></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <!-- Profile Section -->
+    <section id="profileSection" class="section active">
+      <div class="container vertical-layout">
+        <div class="dashboard-content">
+          <div class="card">
+            <div class="card-header">
+              Profile
+              <button class="btn btn-sm btn-edit-profile ml-2" id="editBtn">
+                Edit
+              </button>
+              <button class="btn btn-sm btn-save-profile ml-2" id="saveBtn" style="display: none">
+                Save
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <img src="default-avatar.png" alt="Profile Picture" class="profile-image" id="profileImageDisplay" />
+                <input type="file" class="form-control-file upload-btn" id="profileImageUpload" style="display: none" />
+              </div>
+              <form id="profileForm" class="needs-validation" novalidate>
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" name="name" value="John Doe" required disabled />
+                  <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" class="form-control" id="email" name="email" value="john@example.com" required
+                    disabled />
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" name="address" value="123 Main St, City, Country"
+                    required disabled />
+                  <div class="invalid-feedback">
+                    Please enter your address.
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="buyerSearchSection" class="section">
+      <div class="overlay"></div>
+      <div class="content-wrapper">
+        <div class="search-section text-center">
+          <h2>Search Buyers</h2>
+          <div class="input-group mb-3 search-input">
+            <input type="text" class="form-control" id="searchInput"
+              placeholder="Search for buyers by name, location, or crop needs">
+            <div class="input-group-append">
+              <button id="searchBtn" class="btn btn-primary" onclick="searchBuyers()">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row" id="buyerList">
+            <!-- Content will be dynamically added by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="addProductSection" class="section active">
+      <h2>Farmer Crop Details</h2>
+
+      <!-- Product Display Section -->
+      <div class="product-display" id="productDisplay">
+        <!-- Existing product cards will be displayed here -->
+      </div>
+
+      <!-- Form Section for Adding Products -->
+      <div id="formSection" class="form-section">
+        <h2 id="formTitle">Add New Crop</h2>
+        <form id="productForm">
+          <label for="productName">Crop Name:</label>
+          <input type="text" id="productName" required />
+
+          <label for="productPrice">Price (INR):</label>
+          <input type="number" id="productPrice" required />
+
+          <label for="productDesc">Description:</label>
+          <textarea id="productDesc" rows="3" required></textarea>
+
+          <label for="productImage">Crop Image:</label>
+          <input type="file" id="productImage" accept="image/*" required />
+
+          <label for="humidity">Humidity (%):</label>
+          <input type="number" id="humidity" required />
+
+          <button type="submit" id="formSubmitBtn">Add Crop</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section id="orderSection" class="section">
+      <h2>Orders</h2>
+      <div id="ordersList">
+        <p>No orders yet.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Fixed Add Crop Button -->
+  <button class="add-crop-btn" id="addProductBtn">Add Crop</button>
+
+  <!-- External JavaScript -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+  <script type="module" src="farmerDashboard.js"></script>
+  <script type="module" src="Editprofile.js"></script>
+  <script type="module" src="addCrop.js"></script>
+  <script type="module" src="farmProducts.js"></script>
+  <script type="module" src="searchBuyer.js"></script>
+
+
+  <!-- External JavaScript -->
+  <!-- <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script> -->
+  <!-- <script type="module" src="farmerDashboard.js"></script>
+    <script type="module" src="Editprofile.js"></script>
+    <script type="module" src="addCrop.js"></script> -->
+
+  <!-- <script>
+        const buyers = [
+            { name: "Ram Singh", location: "Delhi", cropNeed: "Wheat", moisture: "14%", price: "₹1500/quintal", contact: "ramsingh@example.com" },
+            { name: "Natwar Lal", location: "Mumbai", cropNeed: "Vegetables", moisture: "10%", price: "₹2000/quintal", contact: "natwarlal@example.com" },
+            { name: "Rajesh Kumar", location: "Chennai", cropNeed: "Corn", moisture: "12%", price: "₹1200/quintal", contact: "rajesh.kumar@example.com" },
+            { name: "Aditi Choudhary", location: "Bangalore", cropNeed: "Rice", moisture: "15%", price: "₹1800/quintal", contact: "aditi.choudhary@example.com" }
+        ];
+
+        function displayBuyers(buyers) {
+            const buyerList = document.getElementById("buyerList");
+            buyerList.innerHTML = ""; // Clear existing content
+            buyers.forEach(buyer => {
+                const buyerCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${buyer.name}</h5>
+                                <p class="card-text"><strong>Location:</strong> ${buyer.location}</p>
+                                <p class="card-text"><strong>Crop Needed:</strong> ${buyer.cropNeed}</p>
+                                <p class="card-text"><strong>Moisture Level:</strong> ${buyer.moisture}</p>
+                                <p class="card-text"><strong>Price Offered:</strong> ${buyer.price}</p>
+                                <button class="btn btn-connect" onclick="connectWithBuyer('${buyer.contact}')">Connect</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                buyerList.insertAdjacentHTML("beforeend", buyerCard);
+            });
+        }
+
+        function searchBuyers() {
+            const searchValue = document.getElementById("searchInput").value.toLowerCase();
+            const filteredBuyers = buyers.filter(buyer =>
+                buyer.name.toLowerCase().includes(searchValue) ||
+                buyer.location.toLowerCase().includes(searchValue) ||
+                buyer.cropNeed.toLowerCase().includes(searchValue)
+            );
+            displayBuyers(filteredBuyers);
+        }
+
+        document.getElementById("searchBtn").addEventListener("click", function() {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none'; // Hide all sections
+            });
+            document.getElementById("buyerSearchSection").classList.add('active');
+            document.getElementById("buyerSearchSection").style.display = 'block'; // Show buyer search section
+            displayBuyers(buyers); // Display all buyers initially
+        });
+
+      
+// Show profile section by default on page load
+document.getElementById("profileSection").classList.add('active');
+document.getElementById("profileSection").style.display = 'block';
+
+     
+
+        function connectWithBuyer(contact) {
+            alert(`You can contact the buyer at: ${contact}`);
+        }
+
+        // Initial display
+        document.getElementById("buyerSearchSection").style.display = 'none'; // Hide buyer search initially
+        document.getElementById("addProductSection").style.display = 'none'; // Hide add product section initially
+        document.getElementById("orderSection").style.display = 'none'; // Hide order section initially
+
+         // Event listener to trigger search on "Enter" key press
+    document.getElementById("searchInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        searchBuyers();
+      }
+    });
+    </script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script >
+
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+// import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAJZbKFfszv9mWpzaKiXg_mMeUxhD8UPZE",
+//   authDomain: "farmse-2cd34.firebaseapp.com",
+//   projectId: "farmse-2cd34",
+//   storageBucket: "farmse-2cd34.appspot.com",
+//   messagingSenderId: "1008873211370",
+//   appId: "1:1008873211370:web:bd24b946ee500354e21e93",
+//   measurementId: "G-3CWS4Y21RB"
+// };
+
+// const app = initializeApp(firebaseConfig);
+// const database = getDatabase(app);
+
+
+function connectWithBuyer(contact,email,phoneNo,address) {
+  sendEmail(contact,email,phoneNo,address);
+  alert(`You can contact the buyer at: ${contact}`);
+}
+
+
+
+function sendEmail(contact,email,phoneNo,address){
+
+  // const uname = localStorage.getItem("username");
+  // let phoneNo = "+91 9999999999";
+  // // console.log("Uname: "  + uname);
+
+  // const userRef = ref(database, 'FarmerReg/' + uname); // Adjust the path according to your data structure
+  // get(userRef).then((snapshot) => {
+  //   if (snapshot.exists()) {
+  //     const data = snapshot.val();
+  //     phoneNo = data.phone || '';
+  //     // console.log("PhoneNo:" + phoneNo);
+      
+  //   } else {
+  //     console.log("No data available");
+  //   }
+  // }).catch((error) => {
+  //   console.error(error);
+  // });
+
+  console.log("Email:" + email);
+  let userEmail = email;
+  let userName = "FarmSe";
+  const emailParams = {
+      from_name: userName,
+      to_name: contact, // Change to the recipient's name if needed
+      //message_html: message,
+      reply_to: userEmail,
+      phone : phoneNo,
+      address : address
+  };
+
+  // Send email
+  emailjs.init("XgmwGPSqJKcAHL6JT");
+  emailjs.send('service_p8m876k', 'template_nf669vt', emailParams)
+      .then(function(response) {
+          console.log('Email sent:', response);
+          alert('Email sent successfully!');
+
+      }, function(error) {
+          console.error('Error sending email:', error);
+          alert('Failed to send email. Please try again later.');
+      });
+}
+  </script>
+  <!-- <script src="https://cdn.emailjs.com/dist/email.min.js"></script> -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+</body>
+
+</html>

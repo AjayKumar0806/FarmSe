@@ -1,0 +1,27 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  .container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 30px;
+  }
+  h2, h3 {
+    color: #4CAF50;
+    text-align: center;
+  }
+  p {
+    line-height: 1.6;
+  }
+  ul {
+    color: #555;
+  }
+  .team-member {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }

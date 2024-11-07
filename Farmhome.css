@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+header {
+  background-color: #076b0b;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #469949;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.btn-logout {
+  background-color: #dc3545;
+  color: rgb(17, 1, 1);
+  border: none;
+}
+
+.btn-logout:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+.btn-settings {
+  background-color: #17a2b8;
+  color: rgb(26, 3, 3);
+  border: none;
+}
+
+.btn-settings:hover {
+  background-color: #138496;
+  color: white;
+}
+
+.btn-edit-profile {
+  background-color: #ffc107;
+  color: rgb(70, 61, 61);
+  border: none;
+}
+
+.btn-edit-profile:hover {
+  background-color: #e0a800;
+  color: rgb(197, 79, 79);
+}
+
+.btn-save-profile {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.btn-save-profile:hover {
+  background-color: #218838;
+  color: rgb(189, 50, 50);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #2a802d;
+  color: #f5f9fc;
+  padding: 20px;
+  text-align: center;
+}
+
+footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+footer ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+footer ul li a {
+  color: #f8f9fb;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+footer ul li a:hover {
+  color: #d1d1d3;
+}
+
+/* Vertical dashboard layout */
+.vertical-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Image Styling */
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.upload-btn {
+  margin-top: 10px;
+}

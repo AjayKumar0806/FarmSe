@@ -1,0 +1,67 @@
+.hero-content {
+    position: relative;
+    z-index: 2 ;
+    color: rgb(8, 8, 8);
+    /* Adjust as needed */
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .navbar-nav .nav-link {
+    margin-right: 20px;
+    /* Increase the gap between links */
+  }
+
+  .btn.btn-custom {
+    color: rgb(28, 26, 26);
+    background-color: rgb(254, 255, 255);
+    /* Default button color */
+  }
+
+  .btn.btn-custom:hover {
+    color: rgba(158, 152, 152, 0.84);
+    background-color: rgb(49, 16, 240);
+    /* Button color on hover */
+  }
+
+  /* Footer Styles */
+  footer {
+    background-color: #4CAF50;
+    /* Dark Green */
+    color: #fff;
+    /* White text */
+  }
+
+  footer a {
+    color: #121214;
+    /* White link text */
+    text-decoration: none;
+    /* Remove underline */
+  }
+
+  footer a:hover {
+    color: #7c7c98;
+    /* Change link color on hover */
+  }
+
+  footer .contact-info i {
+    margin-right: 10px;
+    /* Add spacing between icon and text */
+  }
+
+  footer .quick-links ul li {
+    margin-bottom: 5px;
+    /* Add spacing between quick links */
+  }
+
+  footer .follow-us ul li {
+    margin-bottom: 5px;
+    /* Add spacing between follow us links */
+  }

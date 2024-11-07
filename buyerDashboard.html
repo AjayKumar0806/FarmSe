@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="buyerDashboard.css">
+  <script src="buyerDashboard.js" defer></script>
+  <script type="module" src="buyerdb.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Buyer Dashboard</h1>
+  </header>
+  <h1><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_PEjx0ngaMl59Yp" async> </script> </form></h1>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3" id="sidebar">
+        <div class="sidebar-item active text-center">
+          <!-- <img src="profile-image.jpg" alt="Profile Image" class="img-profile"> -->
+          <h5 class="mt-3" id="usernameDisplay">User Name</h5>
+
+        </div>
+        <div class="sidebar-item active" onclick="showContent('profile')">
+          <i class="fas fa-user"></i> Profile
+        </div>
+        <div class="sidebar-item" onclick="showContent('cropRequirements')">
+          <i class="fas fa-seedling"></i> Crop Requirements
+        </div>
+        <div class="sidebar-item" onclick="showContent('orderHistory')">
+          <i class="fas fa-history"></i> Order History
+        </div>
+        <div class="sidebar-item" onclick="showContent('logOut')">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="col-md-9" id="content">
+        <!-- Profile Content -->
+        <div id="profileContent" class="content-section active-content">
+          <div id="profileView" class="profile-view">
+            <div class="text-center mb-4">
+              <img src="profile-image.jpg" alt="Profile Image" class="img-profile" id="profileImg">
+            </div>
+            <h3 id="displayName">User Name</h3>
+            <p>Email: <span id="displayEmail">user@example.com</span></p>
+            <p>Mobile: <span id="displayMobile">1234567890</span></p>
+            <p>Address: <span id="displayAddress">1234 Street, City, Country</span></p>
+            <div class="edit-button">
+              <button class="btn btn-primary" onclick="toggleEditMode()">Edit Profile</button>
+            </div>
+          </div>
+      
+          <form id="profileForm" class="profile-form" style="display: none;">
+            <div class="form-group">
+              <label for="profileImage">Profile Image</label>
+              <input type="file" class="form-control-file" id="profileImage">
+            </div>
+            <div class="form-group">
+              <label for="userName">Name</label>
+              <input type="text" class="form-control" id="companyName" value="User Name">
+            </div>
+            <div class="form-group">
+              <label for="userEmail">Email</label>
+              <input type="email" class="form-control" id="userEmail" value="user@example.com">
+            </div>
+            <div class="form-group">
+              <label for="userMobile">Mobile</label>
+              <input type="text" class="form-control" id="userMobile" value="1234567890">
+            </div>
+            <div class="form-group">
+              <label for="userAddress">Address</label>
+              <input type="text" class="form-control" id="userAddress" value="1234 Street, City, Country">
+            </div>
+            <div class="form-group">
+              <label for="password">New Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter new password">
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your new password">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" onclick="saveProfile(event)">Save Changes</button>
+              <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <!-- Crop Requirements Content -->
+        <div id="cropRequirementsContent" class="content-section">
+          <h2>Crop Requirements</h2>
+          <form id="cropRequirementsForm" class="profile-form">
+            <div class="form-group">
+              <label for="cropType">Crop Type</label>
+              <input type="text" class="form-control" id="cropType" placeholder="Enter crop type (e.g., Wheat, Rice)" required>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity (in Kg)</label>
+              <input type="number" class="form-control" id="quantity" placeholder="Enter required quantity" required>
+            </div>
+            <div class="form-group">
+              <label for="deliveryDate">Preferred Delivery Date</label>
+              <input type="date" class="form-control" id="deliveryDate" required>
+            </div>
+            <div class="form-group">
+              <label for="additionalNotes">Additional Notes</label>
+              <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Enter any additional notes"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Requirement</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+          </form>
+
+          <h3 class="mt-5">Your Submitted Requirements</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Crop Type</th>
+                <th>Quantity (Kg)</th>
+                <th>Preferred Delivery Date</th>
+                <th>Additional Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example row -->
+              <tr>
+                <td>Wheat</td>
+                <td>1000</td>
+                <td>2024-09-15</td>
+                <td>Need high-quality seeds</td>
+                <td>
+                  <button class="btn btn-sm btn-warning">Edit</button>
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Order History Content -->
+        <div id="orderHistoryContent" class="content-section">
+          <h2>Order History</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity Purchased</th>
+                <th>Rate (per Kg)</th>
+                <th>Total Price (INR)</th>
+                <th>Date Purchased</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example row -->
+              <tr>
+                <td>Rice (Basmati)</td>
+                <td>10 kg</td>
+                <td>₹200</td>
+                <td>₹2,000</td>
+                <td>2024-05-11</td>
+              </tr>
+              <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Log Out Content -->
+        <div id="logOutContent" class="content-section">
+          <h2>Log Out</h2>
+          <div class="text-center">
+            <p>Are you sure you want to log out?</p>
+            <a href="index.html" class="btn btn-primary">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+      <p>&copy; 2024 AgriPortal. All rights reserved.</p>
+    </div>
+  </footer>
+
+ 
+</body>
+</html>
