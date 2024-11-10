@@ -16,7 +16,7 @@ const database = getDatabase(app);
 
 var phoneNo = "+91 9999999999";
 var address = "Null";
-var email = "null";
+var Name = '';
 
 // Fetch buyers from Firebase
 async function fetchBuyers() {
@@ -32,7 +32,8 @@ async function fetchBuyers() {
       const data = snapshot.val();
       phoneNo = data.phone || '';
       address = data.address1 || '';
-      console.log(address);
+      Name = data.name || '';
+      console.log(Name);
     } else {
       console.log("No data available");
     }
@@ -80,7 +81,7 @@ function displayBuyers(buyers) {
               <p class="card-text"><strong>Quantity:</strong> ${cropData.quantity}</p>
               <p class="card-text"><strong>Delivery Date:</strong> ${cropData.deliveryDate}</p>
               <p class="card-text"><strong>Additional Notes:</strong> ${cropData.additionalNotes}</p>
-              <button class="btn btn-connect" onclick=connectWithBuyer('${buyer.username}','${buyer.email}','${phoneNo}','${address}')>Connect</button>
+              <button class="btn btn-connect" onclick=connectWithBuyer('${buyer.username}','${buyer.email}','${Name}','${phoneNo}','${address}') >Connect</button>
             </div>
           </div>
         </div>

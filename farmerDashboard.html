@@ -49,11 +49,11 @@
 
 <body>
   <div class="sidebar">
-    <div class="profile">
-      <img src="https://via.placeholder.com/100" alt="Farmer Image" id="profileImage" />
+    <!-- <div class="profile">
+      <img src="https://via.placeholder.com/100" alt="Farmer Image" id="profileImage" /> 
       <input type="file" id="profileImageUpload" accept="image/*" style="display: none" />
       <button id="editImageBtn">Edit Image</button>
-    </div>
+    </div> -->
     <nav>
       <ul>
         <li><button id="profileBtn">Profile</button></li>
@@ -81,10 +81,10 @@
               </button>
             </div>
             <div class="card-body">
-              <div class="text-center">
+              <!-- <div class="text-center">
                 <img src="default-avatar.png" alt="Profile Picture" class="profile-image" id="profileImageDisplay" />
                 <input type="file" class="form-control-file upload-btn" id="profileImageUpload" style="display: none" />
-              </div>
+              </div> -->
               <form id="profileForm" class="needs-validation" novalidate>
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -292,14 +292,14 @@ document.getElementById("profileSection").style.display = 'block';
 // const database = getDatabase(app);
 
 
-function connectWithBuyer(contact,email,phoneNo,address) {
-  sendEmail(contact,email,phoneNo,address);
+function connectWithBuyer(contact,email,Name,phoneNo,address) {
+  sendEmail(contact,email,Name,phoneNo,address);
   alert(`You can contact the buyer at: ${contact}`);
 }
 
 
 
-function sendEmail(contact,email,phoneNo,address){
+function sendEmail(contact,email,Name,phoneNo,address){
 
   // const uname = localStorage.getItem("username");
   // let phoneNo = "+91 9999999999";
@@ -327,6 +327,7 @@ function sendEmail(contact,email,phoneNo,address){
       to_name: contact, // Change to the recipient's name if needed
       //message_html: message,
       reply_to: userEmail,
+      name: Name,
       phone : phoneNo,
       address : address
   };
