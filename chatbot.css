@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: rgba(223, 242, 247, .5);
+    margin: 0;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .chat {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  #messages {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 85%;
+    padding: 15px;
+    background-color: white;
+    margin: 15px 0;
+    border-radius: 10px;
+  }
+
+  input {
+    border: 0;
+    padding: 15px;
+    border-radius: 10px;
+    width: 90%;
+  }
+
+  .user.response,
+  .bot.response {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .user.response img,
+.bot.response img {
+    width: 30px; /* Image width */
+    height: 30px; /* Image height */
+    border-radius: 50%; /* Circular images */
+    margin-right: 10px; /* Space between image and text */
+}
+
+  .user.response {
+    background-color: #e0f7fa;
+    align-self: flex-start;
+  }
+
+  .bot.response {
+    background-color: #f1f8e9;
+    align-self: flex-end;
+  }
+
+  #suggested-prompts {
+    width: 100%;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  #prompts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .suggestion {
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+
+  .suggestion:hover {
+    background-color: #d0d0d0;
+  }
+
+  @media only screen and (max-width: 980px) {
+    .chat {
+      width: 75vw;
+    }
+    #suggested-prompts {
+      width: 80%;
+    }
+  }
